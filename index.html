@@ -586,7 +586,7 @@
         </div>
 
         <label class="checkbox-card" for="form-phone-ready">
-          <input type="checkbox" id="form-phone-ready" checked onchange="handlePhoneCheckboxChange()">
+          <input type="checkbox" id="form-phone-ready" checked autocomplete="off" onchange="handlePhoneCheckboxChange()">
           <div class="checkbox-card-text">
             <strong>Jag tycker om att prata i telefon och kan prata medan jag kör bil (handsfree).</strong>
             <span style="display: block; font-size: 0.74rem; color: var(--text-muted); margin-top: 0.15rem;">
@@ -671,6 +671,14 @@
         submitBtn.innerHTML = "<span>🚀 Skicka intresseanmälan</span>";
       }
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const chk = document.getElementById("form-phone-ready");
+      if (chk) {
+        chk.checked = true;
+        handlePhoneCheckboxChange();
+      }
+    });
 
     async function submitInterestForm(e) {
       e.preventDefault();
