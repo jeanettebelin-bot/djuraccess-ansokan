@@ -622,15 +622,37 @@
         Din intresseanmälan har tagits emot och landat direkt hos oss i ledningsteamet. Vi läser alla anmälningar med stor värme och hör av oss på telefon eller SMS inom kort för en första pratstund.
       </p>
 
-      <div class="quick-contact-box">
-        <div style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">Har du en akut fråga till Teddy?</div>
-        <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 0.75rem;">
-          Om du vill skicka ett snabbt hej direkt via SMS till fältet kan du göra det här:
+      <div class="quick-contact-box" style="margin-top: 1.5rem; background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: var(--radius-md); padding: 1.25rem; text-align: left;">
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem;">
+          <span style="font-size: 1.3rem;">📱</span>
+          <div>
+            <div style="font-weight: 700; color: #fff; font-size: 0.95rem;">Har du en fråga till fältet eller Teddy?</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Direktkontakt: <strong style="color: #38bdf8;">076-235 46 99</strong></div>
+          </div>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.45; margin-bottom: 0.9rem;">
+          Vill du skicka ett snabbt hej direkt till Teddy via SMS eller ringa? Klicka nedan så öppnas meddelandet i mobilen, eller kopiera texten om du sitter vid datorn:
         </p>
-        <a id="sms-link" href="sms:0701234567?body=Hej Teddy! Jag har precis skickat in en intresseanm%C3%A4lan till DjurAccess." 
-           style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 0.45rem 0.85rem; border-radius: var(--radius-sm); text-decoration: none; font-size: 0.84rem; font-weight: 600;">
-          💬 Skicka ett snabbt hej till Teddy via SMS
-        </a>
+
+        <!-- Knappar för SMS, Samtal och Kopiering -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" onclick="triggerSmsContact()" id="btn-open-sms" 
+                  style="display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; border: 1px solid #38bdf8; padding: 0.55rem 0.95rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+            💬 Öppna & Skicka SMS
+          </button>
+          <a href="tel:0762354699" 
+             style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); padding: 0.55rem 0.95rem; border-radius: var(--radius-sm); text-decoration: none; font-size: 0.85rem; font-weight: 700;">
+            📞 Ring 076-235 46 99
+          </a>
+          <button type="button" onclick="copySmsTextAndPhone()"
+                  style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(255, 255, 255, 0.05); color: #cbd5e1; border: 1px solid var(--border-subtle); padding: 0.55rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.82rem; cursor: pointer;">
+            📋 Kopiera SMS-text & Nr
+          </button>
+        </div>
+
+        <div id="sms-copy-status" style="display: none; margin-top: 0.75rem; font-size: 0.82rem; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 0.5rem 0.85rem; border-radius: var(--radius-sm); border: 1px dashed rgba(56, 189, 248, 0.35); line-height: 1.4;">
+          ✓ SMS-text och telefonnummer kopierat till urklipp!
+        </div>
       </div>
 
       <div style="margin-top: 1.5rem;">
@@ -765,17 +787,68 @@
         localStorage.setItem("djuraccess_local_applications", JSON.stringify(localApps));
       } catch (e) {}
 
-      // Uppdatera SMS-länk med namn
-      const smsLink = document.getElementById("sms-link");
-      if (smsLink) {
-        const smsBody = encodeURIComponent("Hej Teddy! Jag (" + name + " i " + city + ") har precis skickat in en intresseanmälan till DjurAccess för rollen som " + roleTitle + ".");
-        smsLink.href = "sms:0701234567?body=" + smsBody;
-      }
+      // Uppdatera SMS-innehåll med kandidatens namn och ort
+      latestSmsPayload.body = "Hej Teddy! Jag (" + name + " i " + city + ") har precis skickat in en intresseanmälan till DjurAccess för rollen som " + roleTitle + ".";
 
       // Visa framgångsvy
       document.getElementById("form-container").style.display = "none";
       document.getElementById("success-view").style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Smart SMS- och direkthantering som fungerar på både mobil och dator
+    let latestSmsPayload = {
+      phone: "0762354699",
+      phoneFormatted: "076-235 46 99",
+      body: "Hej Teddy! Jag har precis skickat in en intresseanmälan till DjurAccess."
+    };
+
+    function triggerSmsContact() {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      const encoded = encodeURIComponent(latestSmsPayload.body);
+      
+      // iOS Safari använder oftast separatorn &body=, Android/standard ?body=
+      const smsUri = isIOS 
+        ? `sms:${latestSmsPayload.phone}&body=${encoded}`
+        : `sms:${latestSmsPayload.phone}?body=${encoded}`;
+      
+      // Kopiera alltid texten till urklipp som säkerhetsbackup
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(latestSmsPayload.body).catch(() => {});
+      }
+
+      if (isMobile) {
+        window.location.href = smsUri;
+      } else {
+        // Dator / Desktop: visa tydlig kopieringsstatus och ge direkt instruktion
+        showSmsCopyStatus("SMS-text och Teddys nummer (076-235 46 99) har kopierats till urklipp. Klistra in direkt i din meddelandeapp!");
+        // Försök även öppna smsUri ifall datorn har en kopplad app (t.ex. Phone Link eller iMessage)
+        try {
+          window.location.href = smsUri;
+        } catch (e) {}
+      }
+    }
+
+    function copySmsTextAndPhone() {
+      const fullText = `Mottagare (Teddy | DjurAccess): ${latestSmsPayload.phoneFormatted}\n\nMeddelande:\n${latestSmsPayload.body}`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullText).then(() => {
+          showSmsCopyStatus("Kopierat! Telefonnummer (076-235 46 99) och SMS-text finns nu i ditt urklipp.");
+        }).catch(() => {
+          prompt("Kopiera SMS och nummer här:", fullText);
+        });
+      } else {
+        prompt("Kopiera SMS och nummer här:", fullText);
+      }
+    }
+
+    function showSmsCopyStatus(msg) {
+      const box = document.getElementById("sms-copy-status");
+      if (box) {
+        box.textContent = "✓ " + msg;
+        box.style.display = "block";
+      }
     }
   </script>
 </body>
