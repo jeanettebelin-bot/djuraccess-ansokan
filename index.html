@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Bli volontär & klättrare – Intresseanmälan | DjurAccess</title>
+  <meta name="description" content="Vill du hjälpa till att rädda katter och andra djur på höjd? Skicka in din intresseanmälan till DjurAccess här.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=3">
+  <link rel="apple-touch-icon" href="icon-192.png?v=3">
+
+  <style>
+    :root {
+      --bg-dark: #090c13;
+      --bg-card: rgba(18, 24, 38, 0.92);
+      --bg-card-subtle: rgba(255, 255, 255, 0.03);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: #38bdf8;
+      --primary: #0ea5e9;
+      --primary-hover: #0284c7;
+      --success: #10b981;
+      --accent: #f59e0b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --font: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(14, 165, 233, 0.12), transparent 30%),
+        radial-gradient(circle at 85% 90%, rgba(16, 185, 129, 0.10), transparent 35%);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden !important;
+      padding: 1.5rem 1rem 3rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    /* Top Branding */
+    .brand-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .brand-logo-img {
+      height: 48px;
+      width: auto;
+      margin-bottom: 0.75rem;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+    }
+
+    .brand-tagline {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-lead {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Steg-visuell översikt */
+    .process-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .process-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #93c5fd;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.6rem;
+    }
+
+    .p-step {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.6rem 0.7rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .p-step-num {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    .p-step-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 0.15rem;
+    }
+
+    .p-step-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+      margin-top: 0.2rem;
+    }
+
+    /* Form Container */
+    .form-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.5rem;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    @media (max-width: 480px) {
+      .form-card {
+        padding: 1.25rem 1rem;
+      }
+      h1 {
+        font-size: 1.55rem;
+      }
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-top: 1.25rem;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .section-title:first-of-type {
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0.85rem;
+    }
+
+    @media (max-width: 580px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 0.35rem;
+    }
+
+    .field-hint {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.92rem;
+      padding: 0.65rem 0.85rem;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--border-focus);
+      background: rgba(0, 0, 0, 0.55);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 85px;
+    }
+
+    /* Radio cards for role selection */
+    .role-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .role-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.85rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .role-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .role-card input[type="radio"] {
+      margin-top: 0.25rem;
+      accent-color: var(--primary);
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+
+    .role-card-content strong {
+      display: block;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    .role-card-content span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+      line-height: 1.35;
+    }
+
+    /* Checkbox card */
+    .checkbox-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.75rem 0.85rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin-top: 0.85rem;
+      cursor: pointer;
+    }
+
+    .checkbox-card input[type="checkbox"] {
+      margin-top: 0.2rem;
+      accent-color: var(--primary);
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+
+    .checkbox-card-text {
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.4;
+    }
+
+    /* Security note */
+    .vetting-note {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      margin: 1.25rem 0;
+      font-size: 0.8rem;
+      color: #a7f3d0;
+      line-height: 1.45;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.95rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(14, 165, 233, 0.35);
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      box-shadow: 0 6px 22px rgba(14, 165, 233, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Success confirmation view */
+    .success-view {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 1rem;
+    }
+
+    .success-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .success-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #4ade80;
+      margin-bottom: 0.75rem;
+    }
+
+    .success-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .quick-contact-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+      text-align: left;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- BRANDING -->
+    <header class="brand-header">
+      <img src="logo_top_left.png?v=3" alt="DjurAccess" class="brand-logo-img">
+      <div>
+        <span class="brand-tagline">Volontärnätverk & Fältinsats</span>
+      </div>
+      <h1>Vill du hjälpa oss rädda djur i nöd?</h1>
+      <p class="hero-lead">
+        DjurAccess rycker ut när katter och andra djur har fastnat på hög höjd i träd eller på tak. Fyll i din intresseanmälan nedan så hörs vi på telefon för en trevlig och förutsättningslös pratstund!
+      </p>
+    </header>
+
+    <!-- STEGÖVERSIKT -->
+    <div class="process-card">
+      <div class="process-title">
+        <span>✨ Så här går det till – Steg för steg</span>
+      </div>
+      <div class="process-steps">
+        <div class="p-step">
+          <div class="p-step-num">STEG 1</div>
+          <div class="p-step-name">Intresseanmälan</div>
+          <div class="p-step-desc">Detta formulär (2 min)</div>
+        </div>
+        <div class="p-step">
+          <div class="p-step-num">STEG 2</div>
+          <div class="p-step-name">Telefonprat</div>
+          <div class="p-step-desc">Kort och varmt samtal</div>
+        </div>
+        <div class="p-step">
+          <div class="p-step-num">STEG 3</div>
+          <div class="p-step-name">Trygghetskoll</div>
+          <div class="p-step-desc">Registerutdrag för allas trygghet</div>
+        </div>
+        <div class="p-step">
+          <div class="p-step-num">STEG 4</div>
+          <div class="p-step-name">Fält & Klättring</div>
+          <div class="p-step-desc">Trädprov & medklättring</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMULÄR -->
+    <div class="form-card" id="form-container">
+      <form id="interest-form" onsubmit="submitInterestForm(event)">
+        
+        <!-- SEKTION 1: KONTAKT -->
+        <div class="section-title">
+          <span>👤 1. Dina kontaktuppgifter</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-name">För- och efternamn *</label>
+            <input type="text" id="form-name" required placeholder="t.ex. Anna Lind" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="form-phone">Mobilnummer *</label>
+            <input type="tel" id="form-phone" required placeholder="t.ex. 070-123 45 67" autocomplete="tel">
+            <span class="field-hint">För att vi ska kunna ringa eller skicka SMS</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-email">E-postadress</label>
+            <input type="email" id="form-email" placeholder="t.ex. anna@exempel.se" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="form-city">Bostadsort / Kommun *</label>
+            <input type="text" id="form-city" required placeholder="t.ex. Västerås, Uppsala, Sala...">
+            <span class="field-hint">Så vi vet vilket teamområde du tillhör</span>
+          </div>
+        </div>
+
+        <!-- SEKTION 2: ROLL -->
+        <div class="section-title">
+          <span>🎯 2. Vad är du mest intresserad av?</span>
+        </div>
+
+        <div class="role-grid">
+          <label class="role-card">
+            <input type="radio" name="role" value="klattrare" checked>
+            <div class="role-card-content">
+              <strong>🧗 Trädklättrare på höjd</strong>
+              <span>För dig som har klättervana eller är trygg på höjd och vill lära dig repaccess i träd med säkra metoder.</span>
+            </div>
+          </label>
+
+          <label class="role-card">
+            <input type="radio" name="role" value="markstod">
+            <div class="role-card-content">
+              <strong>👥 Markstöd & Transport</strong>
+              <span>Hjälten under trädet! Zonsäkring, ta emot djuret vid marken, stötta oroliga djurägare och hjälpa till med logistik.</span>
+            </div>
+          </label>
+
+          <label class="role-card">
+            <input type="radio" name="role" value="dronare">
+            <div class="role-card-content">
+              <strong>🛸 Drönarpilot / Spanare</strong>
+              <span>Lokalisera nödställda katter med drönare, värmekamera eller markspaning i svår terräng.</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- SEKTION 3: KÖRKORT & BIL -->
+        <div class="section-title">
+          <span>🚗 3. Körkort & Tillgänglighet i fält</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-license">Körkort</label>
+            <select id="form-license">
+              <option value="B" selected>B (Personbil)</option>
+              <option value="BE / B96">BE / B96 (Utökat med släp)</option>
+              <option value="C / C1">C / C1 (Tung lastbil)</option>
+              <option value="Inget">Inget körkort just nu</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="form-license-years">Hur länge har du haft körkort?</label>
+            <input type="text" id="form-license-years" placeholder="t.ex. 5 år (eller övningskör)">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="form-has-car">Har du tillgång till egen bil vid utryckning?</label>
+          <select id="form-has-car">
+            <option value="yes" selected>Ja, har egen bil</option>
+            <option value="sometimes">Ibland / kan ordna</option>
+            <option value="no">Nej, behöver åka med teamkamrat</option>
+          </select>
+        </div>
+
+        <!-- SEKTION 4: ERFARENHET & MOTIVATION -->
+        <div class="section-title">
+          <span>💬 4. Lite om dig</span>
+        </div>
+
+        <div class="form-group">
+          <label for="form-experience">Klätter- eller friluftserfarenhet</label>
+          <textarea id="form-experience" placeholder="Har du klättrat förut (sport, träd, repaccess, arborist)? Eller är du bara van vid skog och natur? Skriv några ord – alla erfarenhetsnivåer är välkomna!"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="form-motivation">Varför vill du vara med i DjurAccess?</label>
+          <textarea id="form-motivation" placeholder="Berätta gärna kort vad som lockar dig med djurräddning..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="form-availability">När på dygnet/veckan passar det oftast bäst för dig?</label>
+          <input type="text" id="form-availability" placeholder="t.ex. Kvällar och helger, eller flexibelt...">
+        </div>
+
+        <label class="checkbox-card">
+          <input type="checkbox" id="form-phone-ready" checked required>
+          <div class="checkbox-card-text">
+            <strong>Jag tycker om att prata i telefon och bemöta människor med lugn och omtanke.</strong>
+            <span style="display: block; font-size: 0.74rem; color: var(--text-muted); margin-top: 0.15rem;">
+              En stor del av vår vardag är att lugna oroliga kattägare och stämma av läget inför en insats.
+            </span>
+          </div>
+        </label>
+
+        <!-- TRYGGHETSINFO -->
+        <div class="vetting-note">
+          🛡️ <strong>Trygghet & Säkerhet:</strong> Efter telefonsamtalet ber vi alla våra blivande klättrare och volontärer om ett registerutdrag från Polisen. Det är en trygghet för djurägarna som öppnar sina trädgårdar för oss. Utrustningsstorlekar och nödkontakt samlas in först när du blivit godkänd och ska ut i träd!
+        </div>
+
+        <!-- SUBMIT -->
+        <button type="submit" class="submit-btn" id="submit-btn">
+          <span>🚀 Skicka intresseanmälan</span>
+        </button>
+
+      </form>
+    </div>
+
+    <!-- TACK-VY EFTER SKICKAT -->
+    <div class="form-card success-view" id="success-view">
+      <div class="success-icon">🌲🐱✨</div>
+      <h2 class="success-title">Tack för ditt engagemang!</h2>
+      <p class="success-desc">
+        Din intresseanmälan har tagits emot och landat direkt hos oss i ledningsteamet. Vi läser alla anmälningar med stor värme och hör av oss på telefon eller SMS inom kort för en första pratstund.
+      </p>
+
+      <div class="quick-contact-box">
+        <div style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">Har du en akut fråga till Teddy?</div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 0.75rem;">
+          Om du vill skicka ett snabbt hej direkt via SMS till fältet kan du göra det här:
+        </p>
+        <a id="sms-link" href="sms:0701234567?body=Hej Teddy! Jag har precis skickat in en intresseanm%C3%A4lan till DjurAccess." 
+           style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 0.45rem 0.85rem; border-radius: var(--radius-sm); text-decoration: none; font-size: 0.84rem; font-weight: 600;">
+          💬 Skicka ett snabbt hej till Teddy via SMS
+        </a>
+      </div>
+
+      <div style="margin-top: 1.5rem;">
+        <button type="button" onclick="window.location.reload()" style="background: transparent; border: 1px solid var(--border-subtle); color: var(--text-muted); padding: 0.45rem 1rem; border-radius: var(--radius-sm); font-size: 0.8rem; cursor: pointer;">
+          Tillbaka till formuläret
+        </button>
+      </div>
+    </div>
+
+    <footer class="footer-note">
+      DjurAccess – Djurhöjdräddning & Repaccess. Alla våra insatser bygger på mjuka värden och noll överlägsenhet. Vi är snälla.
+    </footer>
+
+  </div>
+
+  <script>
+    // Supabase Konfiguration
+    const SUPABASE_URL = "https://zofigekeuvzotkkyypdv.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_vCXx05Hm1D6Cbm6SCgV1gg_dHKi8pWj";
+
+    async function submitInterestForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById("submit-btn");
+      btn.disabled = true;
+      btn.innerHTML = "<span>⏳ Skickar ansökan...</span>";
+
+      const name = document.getElementById("form-name").value.trim();
+      const phone = document.getElementById("form-phone").value.trim();
+      const email = document.getElementById("form-email").value.trim();
+      const city = document.getElementById("form-city").value.trim();
+      
+      const roleEl = document.querySelector('input[name="role"]:checked');
+      const role = roleEl ? roleEl.value : "klattrare";
+
+      const license = document.getElementById("form-license").value;
+      const licenseYears = document.getElementById("form-license-years").value.trim();
+      const hasCarVal = document.getElementById("form-has-car").value;
+      const hasCar = hasCarVal === "yes" || hasCarVal === "sometimes";
+
+      const experience = document.getElementById("form-experience").value.trim();
+      const motivation = document.getElementById("form-motivation").value.trim();
+      const availability = document.getElementById("form-availability").value.trim();
+
+      const roleTitle = role === "klattrare" ? "Trädklättrare" : (role === "markstod" ? "Markstöd" : "Drönarpilot");
+
+      // Strukturera ansökan som en payload
+      const appPayload = {
+        source: "web_ansokan",
+        name: name,
+        phone: phone,
+        email: email,
+        city: city,
+        role: role,
+        roleTitle: roleTitle,
+        license: license,
+        licenseYears: licenseYears,
+        hasCar: hasCar,
+        experience: experience,
+        motivation: motivation,
+        availability: availability,
+        submittedAt: new Date().toISOString()
+      };
+
+      const todoItem = {
+        id: "cand-app-" + Date.now(),
+        title: "🌟 Ny intresseanmälan: " + name + " (" + city + " - " + roleTitle + ")",
+        assignee: "Teddy / Ledning",
+        stage: "todo",
+        category: "Aspirantansökan",
+        priority: "hog",
+        desc: JSON.stringify(appPayload)
+      };
+
+      try {
+        const response = await fetch(SUPABASE_URL + "/rest/v1/todos", {
+          method: "POST",
+          headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": "Bearer " + SUPABASE_KEY,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify(todoItem)
+        });
+
+        if (!response.ok) {
+          console.warn("Kunde inte spara till Supabase:", await response.text());
+        }
+      } catch (err) {
+        console.warn("Nätverksfel vid inskickning:", err);
+      }
+
+      // Spara även lokalt ifall man testar på samma enhet
+      try {
+        const localApps = JSON.parse(localStorage.getItem("djuraccess_local_applications") || "[]");
+        localApps.push(appPayload);
+        localStorage.setItem("djuraccess_local_applications", JSON.stringify(localApps));
+      } catch (e) {}
+
+      // Uppdatera SMS-länk med namn
+      const smsLink = document.getElementById("sms-link");
+      if (smsLink) {
+        const smsBody = encodeURIComponent("Hej Teddy! Jag (" + name + " i " + city + ") har precis skickat in en intresseanmälan till DjurAccess för rollen som " + roleTitle + ".");
+        smsLink.href = "sms:0701234567?body=" + smsBody;
+      }
+
+      // Visa framgångsvy
+      document.getElementById("form-container").style.display = "none";
+      document.getElementById("success-view").style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
