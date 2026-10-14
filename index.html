@@ -585,8 +585,8 @@
           <input type="text" id="form-availability" placeholder="t.ex. Vardagar efter kl 17, lunchtid, eller helger...">
         </div>
 
-        <label class="checkbox-card">
-          <input type="checkbox" id="form-phone-ready" checked required>
+        <label class="checkbox-card" for="form-phone-ready">
+          <input type="checkbox" id="form-phone-ready" checked onchange="handlePhoneCheckboxChange()">
           <div class="checkbox-card-text">
             <strong>Jag tycker om att prata i telefon och bemöta människor med lugn och omtanke.</strong>
             <span style="display: block; font-size: 0.74rem; color: var(--text-muted); margin-top: 0.15rem;">
@@ -594,6 +594,11 @@
             </span>
           </div>
         </label>
+
+        <!-- MJUKT BESKED OM MAN BOCKAR UR TELEFON -->
+        <div id="phone-declined-box" style="display: none; background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.28); border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin-top: 0.65rem; font-size: 0.82rem; color: #fecdd3; line-height: 1.45;">
+          💬 <strong>Ett mjukt och ärligt besked:</strong> Vi förstår helt om du inte gillar att prata i telefon. Men eftersom vi möter oroliga djurägare i akuta situationer och samordnar säkerheten vid träden i realtid, är telefonsamtal helt nödvändiga för oss. Därför passar just detta volontäruppdrag tyvärr inte för dig just nu.
+        </div>
 
         <!-- TRYGGHETSINFO -->
         <div class="vetting-note">
@@ -645,8 +650,35 @@
     const SUPABASE_URL = "https://zofigekeuvzotkkyypdv.supabase.co";
     const SUPABASE_KEY = "sb_publishable_vCXx05Hm1D6Cbm6SCgV1gg_dHKi8pWj";
 
+    function handlePhoneCheckboxChange() {
+      const chk = document.getElementById("form-phone-ready");
+      const declineBox = document.getElementById("phone-declined-box");
+      const submitBtn = document.getElementById("submit-btn");
+
+      if (!chk || !declineBox || !submitBtn) return;
+
+      if (!chk.checked) {
+        declineBox.style.display = "block";
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.5";
+        submitBtn.style.cursor = "not-allowed";
+        submitBtn.innerHTML = "<span>⚠️ Kräver vilja att prata i telefon</span>";
+      } else {
+        declineBox.style.display = "none";
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.cursor = "pointer";
+        submitBtn.innerHTML = "<span>🚀 Skicka intresseanmälan</span>";
+      }
+    }
+
     async function submitInterestForm(e) {
       e.preventDefault();
+      const phoneChk = document.getElementById("form-phone-ready");
+      if (!phoneChk || !phoneChk.checked) {
+        handlePhoneCheckboxChange();
+        return;
+      }
       const btn = document.getElementById("submit-btn");
       btn.disabled = true;
       btn.innerHTML = "<span>⏳ Skickar ansökan...</span>";
